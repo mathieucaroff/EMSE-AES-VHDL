@@ -1,0 +1,37 @@
+# git
+
+# IDE
+.project
+.library_mapping.xml
+*.iml
+.settings
+.idea
+.vscode
+
+# vhdl, ghdl
+work-obj93.cf
+
+# source
+trash.*
+trash
+wip.*
+wip-*
+
+# executables
+generate_tables
+
+# tools
+.rake_tasks*
+
+# other generated/copied
+gsource
+sources
+gbench
+bench
+
+# pandoc generated
+*.pdf
+
+# Current WIP
+[MR]akefile
+wip
