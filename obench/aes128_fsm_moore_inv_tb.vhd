@@ -83,6 +83,7 @@ begin
         
         -- Testing the inverse cypher
         
+        -- Load the key and data
         clk_is <= '0';
         
         reset_is <= '0';
@@ -97,19 +98,52 @@ begin
 
         wait for 500 ps;
         
-        
-        for i in 1 to 10 loop
+        -- Stop loading the key and data
+        start_is <= '0';
+
+        -- Run the 11 rounds
+        for i in 0 to 10 loop
+
+            -- Check the status report while computing
+            assert aes_on_os = '1'
+            report "aes_on_os loop error: " & bin("" & aes_on_os)
+            ;
+
             clk_is <= '0';
             wait for 500 ps;
             clk_is <= '1';
             wait for 500 ps;
+
         end loop;
         
+        -- Check the final value
         assert data_os = x"526573746f20656e2076696c6c65203f"
-        report "data_os error: " & hex(data_os)
+        report "data_os c8 error: " & hex(data_os)
         ;
         assert aes_on_os = '0'
-        report "aes_on_os error: " & bin("" & aes_on_os)
+        report "aes_on_os c8 error: " & bin("" & aes_on_os)
+        ;
+
+        clk_is <= '0';
+        wait for 500 ps;
+        
+        -- Check that the value is held
+        assert data_os = x"526573746f20656e2076696c6c65203f"
+        report "data_os c9 error: " & hex(data_os)
+        ;
+        assert aes_on_os = '0'
+        report "aes_on_os c9 error: " & bin("" & aes_on_os)
+        ;
+
+        clk_is <= '1';
+        wait for 500 ps;
+        
+        -- Still held
+        assert data_os = x"526573746f20656e2076696c6c65203f"
+        report "data_os c9 error: " & hex(data_os)
+        ;
+        assert aes_on_os = '0'
+        report "aes_on_os c9 error: " & bin("" & aes_on_os)
         ;
 
 

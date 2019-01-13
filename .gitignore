@@ -1,5 +1,9 @@
 # git
 
+# "gig" git ignore
+gig[-.]*
+.gig[-.]*
+
 # IDE
 .project
 .library_mapping.xml
@@ -14,8 +18,7 @@ work-obj93.cf
 # source
 trash.*
 trash
-wip.*
-wip-*
+wip[-.]*
 
 # executables
 generate_tables

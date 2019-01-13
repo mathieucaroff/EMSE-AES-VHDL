@@ -3,6 +3,7 @@
 -- Compute the Inverse AES cipher
 
 use work.util_type.all;
+use work.util_str.all;
 
 library ieee;
 use ieee.std_logic_1164.all;
@@ -82,10 +83,14 @@ begin
             key_is  <= key_next_is; 
             data_s <= data_next_s;
             count_s <= count_next_s;
+        elsif clk_i'event then
+            -- report "count : x""" & hex(count_s) & """";
+            -- report "data : x""" & hex(byte2bit(data_s)) & """";
+            -- report "";
         end if;
     end process;
 
-    -- Process 2
+    -- Process 2.a
     -- Computing the next state
     key_next_is <= bit2byte(key_i) when start_i = '1' else key_is;
 
@@ -115,13 +120,15 @@ begin
             skip_sb_sr_i => skip_sb_sr_is,
 
             roundkey_i => roundkey_is,
-            state_i => state_is,            
+            state_i => state_is,
             state_o => state_os
         );
     
     data_next_s <=
-        data_s when count_s = x"F" else 
-        state_os when start_i = '0' else bit2byte(data_i);
+        bit2byte(data_i) when start_i = '1' else
+        state_os when count_s /= x"F" else
+        data_s
+    ;
     
     process (count_s)
     begin
