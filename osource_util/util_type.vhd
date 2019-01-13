@@ -9,10 +9,12 @@ use ieee.numeric_std.all;
 
 package util_type is
 
+    -- I'm too lazy to write std_logic, but bit is already taken
     subtype b is std_logic;
 
     -- subtype bit16  is std_logic_vector(16 - 1 downto 0);
 
+    -- bit types
     subtype bit2   is std_logic_vector(  2 - 1 downto 0);
     subtype bit4   is std_logic_vector(  4 - 1 downto 0);    
     subtype bit8   is std_logic_vector(  8 - 1 downto 0);
@@ -20,22 +22,25 @@ package util_type is
     subtype bit128 is std_logic_vector(128 - 1 downto 0);
     subtype bit256 is std_logic_vector(256 - 1 downto 0);
 
+    -- bytes array types
     type bytearray is array (natural range <>) of bit8;
 
     subtype byte4  is bytearray(0 to  4 - 1);
     subtype byte16 is bytearray(0 to 16 - 1);
     subtype byte32 is bytearray(0 to 32 - 1);
 
-    subtype lut1to10 is bytearray(1 to 10);
+    -- Lookup Tables
+    subtype lut1to10 is bytearray(1 to 10); -- Could be used in key schedul
     subtype lut256   is bytearray(0 to 256 - 1);
 
 
     function byte2bit (bytevec : bytearray) return std_logic_vector;
     function bit2byte (bitvec : std_logic_vector) return bytearray;
-    
+
     function transpose (state_i : byte16) return byte16;
 
 
+    -- Types for test benches
     type bit8_2 is record
         vec_i, vec_o : bit8;
     end record;
@@ -61,6 +66,8 @@ end package;
 
 package body util_type is
 
+    -- Obviously the two below function convert between array of bytes
+    -- and vector of bits
     function byte2bit (bytevec : bytearray) return std_logic_vector is
         variable m : natural;
         variable bitvec : std_logic_vector(8 * bytevec'length - 1 downto 0);
@@ -87,6 +94,7 @@ package body util_type is
         return bytevec;
     end function;
 
+    -- Operate matrix transposition on byte16, representing it as a 4x4 matrix
     function transpose (state_i : byte16) return byte16 is
         variable state_o : byte16;
     begin

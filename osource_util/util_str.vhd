@@ -20,6 +20,9 @@ use ieee.std_logic_1164.all;
 
 package util_str is
 
+    -- NL means New Line
+    -- Character'Val(10) is the only way I know to get that character
+    -- with Ada's standard libraries
     constant NL : String := (1 => Character'Val(10));
 
     function bin(lvec : in std_logic_vector) return string;
@@ -29,6 +32,7 @@ end package;
 
 package body util_str is
 
+    -- Conversion of std_logic_vector to string as binary number
     function bin(lvec : in std_logic_vector) return string is
         variable text : string(lvec'length - 1 downto 0) := (others => '@');
         variable c : character;
@@ -49,6 +53,7 @@ package body util_str is
     end function;
 
 
+    -- Conversion of std_logic_vector to string as hexadecimal number
     function hex(lvec : in std_logic_vector) return string is
         variable text : string(lvec'length / 4 - 1 downto 0) := (others => '@');
         variable c : character;
