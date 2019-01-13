@@ -104,18 +104,6 @@ test() {
     run "$@"
 }
 
-# Discarded as buggy because entities require a specific order for analyse
-# use `--build run-all` (build; run_all;) instead.
-#
-# test_all() {
-#     # Test all entities that can be tested
-#     # Look for names in $source and in $bench
-
-#     test $(ls {$source,$bench}/*.vhd | sed -E 's/(_tb)?\.vhd$//;s_.*/__' | sort -u) 2>&1 \
-#     | grep -Ev 'ghdl: cannot (open.*\.vhd$|find entity or configuration)' \
-#     | grep -Ev ': design file is empty \(no design unit found\)'
-# }
-
 gen_bench() {
     # Generate files in $gbench
 
@@ -419,24 +407,3 @@ do
         ;;
     esac
 done
-
-# Discarded
-
-# build|anaylse|run|test)
-#     # Set the command that will be executed when non-command appears
-#     cmd="$arg"
-#     ;;
-
-
-# The below approach was probably excessive, which is why it
-# was discarded. It was at the end of `*)`
-#
-# arg="${arg#'\'}" # Allow escaping - and --
-# echo "[" "$cmd" "$arg" "$@" "]"
-# set -- "$arg" "$@" # push back "$arg"
-# "$cmd" "$@"
-# # The return code of $cmd is the number of argumets it used up
-# ret=$?
-# # If the return code is 255, it means it used everything.
-# [ $ret == 255 ] && ret=$#
-# shift $ret
