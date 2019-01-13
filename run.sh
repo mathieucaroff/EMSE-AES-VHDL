@@ -4,6 +4,14 @@
 # ./run.sh
 # Created 2018-11-20
 #
+# Synopsis
+# ./run.sh [OPTIONS...] [COMMAND [ARGUMENTS...]]
+#
+# Where options are of one of these forms:
+# * Single letter `-s`
+# * Expression `--word`, or `--several-words`
+#
+# Prefer long option names over short ones.
 #
 # A script to analyse and run vhdl files.
 
@@ -214,8 +222,6 @@ if [ " " == "$* " ]
 then set -- call hint
 fi
 
-cmd=no_cmd_selected_error
-
 while [[ $# -ge 1 ]]
 do
     arg="$1"
@@ -364,7 +370,7 @@ do
                         cmd+=(
                             --buildcmd "vcom"
                             --build
-                            call echo $'Now use:\nvsim' bench/*_tb.vhd
+                            call echo $'List of available entity test benches:\n' bench/*_tb.vhd
                         )
                     else 
                         echo "Cannot find vcom. Aborting."
