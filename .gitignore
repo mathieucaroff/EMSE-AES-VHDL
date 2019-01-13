@@ -34,6 +34,8 @@ bench
 
 # pandoc generated
 *.pdf
+# zip generated
+*.zip
 
 # Current WIP
 [MR]akefile
