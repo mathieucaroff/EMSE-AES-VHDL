@@ -1,6 +1,6 @@
 # VHDL AES
 
-/!\ Master have been voluntarly blowted with generated and copied files. If you want
+/!\ Master has been voluntarly bloated with generated and copied files. If you want
 just the source, checkout the `source` branch.
 
 Just another VHDL implementation of Advanced Encryption Standard (Rijndael).
